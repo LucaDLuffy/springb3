@@ -1,5 +1,6 @@
 package com.exemple.springboot.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.springframework.boot.autoconfigure.web.WebProperties;
 
@@ -16,7 +17,8 @@ public class Category implements Serializable {
     private Long id;
     private String name;
 
-    @Transient
+    @JsonIgnore//esse foi para não ficar em loop um chamando o outrro
+    @ManyToMany(mappedBy = "categories")
     private Set<Product> products = new HashSet<>();
 
     public Category(){
