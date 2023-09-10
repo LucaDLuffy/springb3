@@ -1,5 +1,6 @@
 package com.exemple.springboot.services;
 
+import com.exemple.springboot.entities.Order;
 import com.exemple.springboot.entities.User;
 import com.exemple.springboot.repositores.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
