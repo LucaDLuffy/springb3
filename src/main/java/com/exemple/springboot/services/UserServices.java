@@ -23,4 +23,8 @@ public class UserServices {//aqui usei o @Service para marcar minha dependencia 
         Optional<User> obj = repository.findById(id);
         return obj.get();
     }
+
+    public User insert(User obj){
+        return repository.save(obj);
+    }
 }
