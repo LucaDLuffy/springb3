@@ -3,6 +3,7 @@ package com.exemple.springboot.services;
 import com.exemple.springboot.entities.Order;
 import com.exemple.springboot.entities.User;
 import com.exemple.springboot.repositores.UserRepository;
+import com.exemple.springboot.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,7 @@ public class UserServices {//aqui usei o @Service para marcar minha dependencia 
 
     public User findById(Long id){
         Optional<User> obj = repository.findById(id);
-        return obj.get();
+        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public User insert(User obj){
