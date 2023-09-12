@@ -5,6 +5,7 @@ import com.exemple.springboot.entities.User;
 import com.exemple.springboot.repositores.UserRepository;
 import com.exemple.springboot.services.exceptions.DatabaseException;
 import com.exemple.springboot.services.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -44,9 +45,13 @@ public class UserServices {//aqui usei o @Service para marcar minha dependencia 
     }
 
     public User update(Long id, User obj){
-        User entity = repository.getReferenceById(id);//instancia sem ir pro banco direto
-        updateData(entity, obj);
-        return repository.save(entity);
+        try {
+            User entity = repository.getReferenceById(id);//instancia sem ir pro banco direto
+            updateData(entity, obj);
+            return repository.save(entity);
+        } catch (EntityNotFoundException e){
+            throw new ResourceNotFoundException(id);
+        }
     }
 
     private void updateData(User entity, User obj) {
